@@ -1,0 +1,119 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdkVersion versions.compile_sdk
+    buildToolsVersion versions.build_tools
+
+    defaultConfig {
+        minSdkVersion versions.min_sdk
+        targetSdkVersion versions.target_sdk
+        versionCode versions.version_code
+        versionName versions.version_name
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles 'consumer-rules.pro'
+    }
+
+    buildTypes {
+        debug {
+            buildConfigField("String", "apkType", apkType)
+            buildConfigField("boolean", "isModuled", isModuled)
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        release {
+            buildConfigField("String", "apkType", apkType)
+            buildConfigField("boolean", "isModuled", isModuled)
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    dataBinding {
+        enabled true
+    }
+
+    compileOptions {
+        sourceCompatibility 1.8
+        targetCompatibility 1.8
+    }
+}
+
+dependencies {
+    testImplementation deps.junit
+    androidTestImplementation deps.test.runner
+    androidTestImplementation deps.espresso.core
+    //基础内容
+    api fileTree(dir: 'libs', include: ['*.jar'])
+    api deps.kotlin.core
+    api deps.support.appcompat
+    api deps.support.core_ktx
+    api deps.constraintlayout
+
+    //官方支持框架
+    api deps.support.design
+    api deps.support.recyclerview
+
+    //注解框架Koin
+    api deps.koin.scop
+    api deps.koin.viewmodel
+    api deps.koin.ext
+
+    //数据库
+    api deps.room.runtime
+    api deps.room.runtime_ktx
+    kapt deps.room.compiler
+    api deps.room.rxjava2
+    testImplementation deps.room.testing
+
+    //后台任务管理
+    api deps.work.runtime
+    api deps.work.runtime_ktx
+    testImplementation deps.work.testing
+
+    //网络请求
+    api deps.retrofit2.core
+    api deps.retrofit2.scalars
+    api deps.retrofit2.gson
+    api deps.retrofit2.adapter
+    api deps.retrofit2.interceptor
+
+    //RxJava2
+    api deps.rxjava2.core
+    api deps.rxjava2.rxandroid
+    api deps.rxjava2.rxlife
+
+    //图片加载
+    api deps.glide.core
+    kapt deps.glide.compiler
+
+    //上拉/下拉 刷新
+    api deps.refresh.layout
+    api deps.refresh.header
+
+    debugApi deps.pandora.core
+    releaseApi deps.pandora.no_op
+
+    //解决方法数限制
+    api deps.multidex
+    //基础工具包
+    api deps.dev_app_x
+    //屏幕适配
+    api deps.autosize
+    //事件总线
+    api deps.eventbus
+    //常规UI
+    api deps.xui
+    //权限申请
+    api deps.rxpermissions
+    //Json解析
+    api deps.gson
+    //日志管理
+    api deps.timber
+    api deps.logger
+    //上传下载监听
+    api deps.progressmanager
+}

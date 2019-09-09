@@ -1,0 +1,181 @@
+ext.deps = [:]
+def versions = [:]
+
+versions.min_sdk = 19
+versions.target_sdk = 29
+versions.compile_sdk = 29
+versions.version_code = versionCode.toInteger()
+versions.version_name = versionName.toString()
+versions.build_tools = "29.0.2"
+
+versions.gradle = "3.5.0"
+versions.kotlin = "1.3.50"
+versions.appcompat = "1.0.2"
+versions.support = "1.1.0-alpha09"
+versions.core_ktx = "1.0.2"
+versions.test = "1.2.0"
+versions.junit = "4.12"
+versions.espresso = "3.2.0"
+versions.constraintlayout = "1.1.3"
+versions.navigation = "2.0.0"
+versions.work = "2.3.0-alpha01"
+versions.room = "2.2.0-beta01"
+versions.koin = "2.0.1"
+versions.multidex = "2.0.1"
+versions.dev_app_x = "1.7.7"
+versions.retrofit2 = "2.6.1"
+versions.okhttp_interceptor = "3.6.0"
+versions.rxjava2 = "2.2.11"
+versions.rxandroid = "2.1.1"
+versions.rxlife_x = "1.0.9"
+versions.glide = "4.9.0"
+versions.rxpermissions = "0.9.5@aar"
+versions.progressmanager = "1.5.0"
+versions.qmui = "1.4.0"
+versions.xui = "1.0.8"
+versions.picture_library = "v2.2.3"
+versions.greendao = "3.2.2"
+versions.greendao_upgrade = "v2.0.2"
+versions.eventbus = "3.1.1"
+versions.logger = "2.2.0"
+versions.timber = "4.7.1"
+versions.autosize = "1.1.2"
+versions.smart_refresh = "1.1.0"
+versions.gson = "2.8.5"
+versions.material = "1.1.0-alpha09"
+versions.pandora = "androidx_v2.0.5"
+versions.pandora_no_op = "v2.0.3"
+versions.zxing_lite = "1.0.5"
+versions.pinyin4j = "2.5.0"
+versions.badgeview = "1.1.3"
+versions.url_manager = "1.3.0"
+versions.progressmanager = "1.3.0"
+ext.versions = versions
+
+def deps = [:]
+deps.appcompat = "androidx.appcompat:appcompat:$versions.appcompat"
+deps.constraintlayout = "androidx.constraintlayout:constraintlayout:$versions.constraintlayout"
+deps.junit = "junit:junit:$versions.junit"
+deps.autosize = "me.jessyan:autosize:$versions.autosize"
+deps.eventbus = "org.greenrobot:eventbus:$versions.eventbus"
+deps.picture_library = "com.github.LuckSiege.PictureSelector:picture_library:$versions.picture_library"
+deps.qmui = "com.qmuiteam:qmui:$versions.qmui"
+deps.xui = "com.github.xuexiangjys:XUI:$versions.xui"
+deps.rxpermissions = "com.tbruyelle.rxpermissions2:rxpermissions:$versions.rxpermissions"
+deps.progressmanager = "me.jessyan:progressmanager:$versions.progressmanager"
+deps.gson = "com.google.code.gson:gson:$versions.gson"
+deps.logger = "com.orhanobut:logger:$versions.logger"
+deps.timber = "com.jakewharton.timber:timber:$versions.timber"
+deps.dev_app_x = "com.afkt:DevAppX:$versions.dev_app_x"
+deps.multidex = "androidx.multidex:multidex:$versions.multidex"
+deps.zxing_lite = "com.king.zxing:zxing-lite:$versions.zxing_lite"
+deps.pinyin4j = "com.belerweb:pinyin4j:$versions.pinyin4j"
+deps.badgeview = "q.rorbin:badgeview:$versions.badgeview"
+deps.url_manager = "me.jessyan:retrofit-url-manager:$versions.url_manager"
+deps.progressmanager = "me.jessyan:progressmanager:$versions.progressmanager"
+
+def gradle = [:]
+gradle.plugin = "com.android.tools.build:gradle:$versions.gradle"
+deps.gradle = gradle
+
+def kotlin = [:]
+kotlin.core = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$versions.kotlin"
+kotlin.plugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:$versions.kotlin"
+kotlin.test = "org.jetbrains.kotlin:kotlin-test-junit:$versions.kotlin"
+kotlin.allopen = "org.jetbrains.kotlin:kotlin-allopen:$versions.kotlin"
+deps.kotlin = kotlin
+
+def support = [:]
+support.annotations = "androidx.annotation:annotation:$versions.support"
+support.appcompat = "androidx.appcompat:appcompat:$versions.appcompat"
+support.recyclerview = "androidx.recyclerview:recyclerview:$versions.support"
+support.cardview = "androidx.cardview:cardview:$versions.support"
+support.design = "com.google.android.material:material:$versions.support"
+support.core_utils = "androidx.legacy:legacy-support-core-utils:$versions.support"
+support.core_ktx = "androidx.core:core-ktx:$versions.core_ktx"
+deps.support = support
+
+def koin = [:]
+koin.scop = "org.koin:koin-androidx-scope:$versions.koin"
+koin.viewmodel = "org.koin:koin-androidx-viewmodel:$versions.koin"
+koin.ext = "org.koin:koin-androidx-ext:$versions.koin"
+deps.koin = koin
+
+def room = [:]
+room.runtime = "androidx.room:room-runtime:$versions.room"
+room.runtime_ktx = "androidx.room:room-ktx:$versions.room"
+room.compiler = "androidx.room:room-compiler:$versions.room"
+room.rxjava2 = "androidx.room:room-rxjava2:$versions.room"
+room.testing = "androidx.room:room-testing:$versions.room"
+deps.room = room
+
+def navigation = [:]
+navigation.runtime = "androidx.navigation:navigation-runtime:$versions.navigation"
+navigation.runtime_ktx = "androidx.navigation:navigation-runtime-ktx:$versions.navigation"
+navigation.fragment = "androidx.navigation:navigation-fragment:$versions.navigation"
+navigation.fragment_ktx = "androidx.navigation:navigation-fragment-ktx:$versions.navigation"
+navigation.ui = "androidx.navigation:navigation-ui:$versions.navigation"
+navigation.ui_ktx = "androidx.navigation:navigation-ui-ktx:$versions.navigation"
+navigation.safe_args_plugin = "androidx.navigation:navigation-safe-args-gradle-plugin:$versions.navigation"
+deps.navigation = navigation
+
+def espresso = [:]
+espresso.core = "androidx.test.espresso:espresso-core:$versions.espresso"
+espresso.contrib = "androidx.test.espresso:espresso-contrib:$versions.espresso"
+espresso.intents = "androidx.test.espresso:espresso-intents:$versions.espresso"
+deps.espresso = espresso
+
+def work = [:]
+work.runtime = "androidx.work:work-runtime:$versions.work"
+work.runtime_ktx = "androidx.work:work-runtime-ktx:$versions.work"
+work.testing = "androidx.work:work-testing:$versions.work"
+deps.work = work
+
+def test = [:]
+test.core = "androidx.test:core:$versions.test"
+test.ext_junit = "androidx.test.ext:junit:$versions.test"
+test.runner = "androidx.test:runner:$versions.test"
+test.rules = "androidx.test:rules:$versions.test"
+deps.test = test
+
+def retrofit2 = [:]
+retrofit2.core = "com.squareup.retrofit2:retrofit:$versions.retrofit2"
+retrofit2.scalars = "com.squareup.retrofit2:converter-scalars:$versions.retrofit2"
+retrofit2.gson = "com.squareup.retrofit2:converter-gson:$versions.retrofit2"
+retrofit2.adapter = "com.squareup.retrofit2:adapter-rxjava2:$versions.retrofit2"
+retrofit2.interceptor = "com.squareup.okhttp3:logging-interceptor:$versions.okhttp_interceptor"
+deps.retrofit2 = retrofit2
+
+def rxjava2 = [:]
+rxjava2.core = "io.reactivex.rxjava2:rxjava:$versions.rxjava2"
+rxjava2.rxandroid = "io.reactivex.rxjava2:rxandroid:$versions.rxandroid"
+rxjava2.rxlife = "com.rxjava.rxlife:rxlife-x:$versions.rxlife_x"
+deps.rxjava2 = rxjava2
+
+def glide = [:]
+glide.core = "com.github.bumptech.glide:glide:$versions.glide"
+glide.compiler = "com.github.bumptech.glide:compiler:$versions.glide"
+deps.glide = glide
+
+def greendao = [:]
+greendao.core = "org.greenrobot:greendao:$versions.greendao"
+greendao.upgrade = "com.github.yuweiguocn:GreenDaoUpgradeHelper:$versions.greendao_upgrade"
+greendao.plugin = "org.greenrobot:greendao-gradle-plugin:$versions.greendao"
+deps.greendao = greendao
+
+def refresh = [:]
+refresh.layout = "com.scwang.smartrefresh:SmartRefreshLayout:$versions.smart_refresh"
+refresh.header = "com.scwang.smartrefresh:SmartRefreshHeader:$versions.smart_refresh"
+deps.refresh = refresh
+
+def pandora = [:]
+pandora.core = "com.github.whataa:pandora:$versions.pandora"
+pandora.no_op = "com.github.whataa:pandora:$versions.pandora_no_op"
+deps.pandora = pandora
+
+def aspect = [:]
+aspect.core = "org.aspectj:aspectjrt:1.8.14"
+aspect.plugin = "com.hujiang.aspectjx:gradle-android-plugin-aspectjx:2.0.4"
+deps.aspect = aspect
+
+ext.deps = deps
