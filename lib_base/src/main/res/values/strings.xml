@@ -10,6 +10,9 @@
     <string name="Network_On_Main_Thread_Exception">网络请求不可以放在主线程</string>
     <string name="unknown_error">未知错误</string>
     <string name="response_return_error">服务器返回数据失败</string>
-
     <string name="unknown_response">未知响应</string>
+
+    <string name="input_account">please input your account</string>
+    <string name="input_password">please input your password</string>
+
 </resources>

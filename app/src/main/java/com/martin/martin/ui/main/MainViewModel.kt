@@ -16,4 +16,8 @@ class MainViewModel : ViewModel(), KoinComponent {
 
     fun items() = mModel.mainItems()
 
+    fun test(){
+
+    }
+
 }

@@ -15,11 +15,10 @@ class CookieJarImpl(private val cookieStore: CookieStore) : CookieJar {
 
     fun addCookies(cookies: List<Cookie>) {
         for (cookie in cookies) {
-            val domain = cookie.domain()
-            var domainCookies: MutableSet<Cookie>? = userCookies[domain]
+            var domainCookies: MutableSet<Cookie>? = userCookies[cookie.domain]
             if (domainCookies == null) {
                 domainCookies = HashSet()
-                userCookies[domain] = domainCookies
+                userCookies[cookie.domain] = domainCookies
             }
             domainCookies.add(cookie)
         }
@@ -33,7 +32,7 @@ class CookieJarImpl(private val cookieStore: CookieStore) : CookieJar {
     @Synchronized
     override fun loadForRequest(url: HttpUrl): List<Cookie> {
         val requestUrlCookies = cookieStore.loadCookies(url)
-        val userUrlCookies = userCookies[url.host()]
+        val userUrlCookies = userCookies[url.host]
         val cookieSet = HashSet<Cookie>()
         if (requestUrlCookies != null) cookieSet.addAll(requestUrlCookies)
         if (userUrlCookies != null) cookieSet.addAll(userUrlCookies)

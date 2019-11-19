@@ -3,7 +3,7 @@ package com.martin.lib_base.retrofit.cookie
 import android.content.Context
 import android.content.SharedPreferences
 import android.text.TextUtils
-import android.util.Log
+import com.martin.lib_base.logd
 import dev.DevUtils
 import okhttp3.Cookie
 import okhttp3.HttpUrl
@@ -14,7 +14,6 @@ import java.util.concurrent.ConcurrentHashMap
 class CustomCookieStore : CookieStore {
 
     companion object {
-        private val LOG_TAG = "PersistentCookieStore"
         private val COOKIE_PREFS = "okhttputils_cookie"     //cookie使用prefs保存
         private val COOKIE_NAME_PREFIX = "cookie_"          //cookie持久化的统一前缀
     }
@@ -38,7 +37,7 @@ class CustomCookieStore : CookieStore {
         cookiePrefs = DevUtils.getContext().getSharedPreferences(COOKIE_PREFS, Context.MODE_PRIVATE)
         cookies = HashMap()
 
-        //将持久化的cookies缓存到内存中,数据结构为 Map<Url.host, Map<Cookie.name, Cookie>>
+        //将持久化的cookies缓存到内存中,数据结构为 Map<url.host, Map<Cookie.name, Cookie>>
         val prefsMap = cookiePrefs.all
         for ((key, value) in prefsMap) {
             if (value != null && !key.startsWith(COOKIE_NAME_PREFIX)) {
@@ -62,7 +61,7 @@ class CustomCookieStore : CookieStore {
     }
 
     private fun getCookieToken(cookie: Cookie): String {
-        return cookie.name() + "@" + cookie.domain()
+        return cookie.name + "@" + cookie.domain
     }
 
     /**
@@ -70,8 +69,8 @@ class CustomCookieStore : CookieStore {
      */
     override fun loadCookies(url: HttpUrl): List<Cookie> {
         val ret = ArrayList<Cookie>()
-        if (cookies.containsKey(url.host())) {
-            val map = cookies[url.host()]
+        if (cookies.containsKey(url.host)) {
+            val map = cookies[url.host]
             val urlCookies = map!!.values
             for (cookie in urlCookies) {
                 if (isCookieExpired(cookie)) {
@@ -88,8 +87,8 @@ class CustomCookieStore : CookieStore {
      * 将url的所有Cookie保存在本地
      */
     override fun saveCookies(url: HttpUrl, urlCookies: List<Cookie>) {
-        if (!cookies.containsKey(url.host())) {
-            cookies[url.host()] = ConcurrentHashMap()
+        if (!cookies.containsKey(url.host)) {
+            cookies[url.host] = ConcurrentHashMap()
         }
         for (cookie in urlCookies) {
             //            当前cookie是否过期
@@ -103,17 +102,17 @@ class CustomCookieStore : CookieStore {
 
     /**
      * 保存cookie，并将cookies持久化到本地,数据结构为
-     * Url.host -> Cookie1.name,Cookie2.name,Cookie3.name
+     * url.host -> Cookie1.name,Cookie2.name,Cookie3.name
      * cookie_Cookie1.name -> CookieString
      * cookie_Cookie2.name -> CookieString
      */
     private fun saveCookie(url: HttpUrl, cookie: Cookie, name: String) {
         //内存缓存
-        val map = cookies[url.host()]
+        val map = cookies[url.host]
         map!![name] = cookie
         //文件缓存
         val prefsWriter = cookiePrefs.edit()
-        prefsWriter.putString(url.host(), TextUtils.join(",", map.keys))
+        prefsWriter.putString(url.host, TextUtils.join(",", map.keys))
         prefsWriter.putString(COOKIE_NAME_PREFIX + name, encodeCookie(SerializableHttpCookie(cookie)))
         prefsWriter.apply()
     }
@@ -123,8 +122,8 @@ class CustomCookieStore : CookieStore {
      */
     override fun removeCookie(url: HttpUrl, cookie: Cookie): Boolean {
         val name = getCookieToken(cookie)
-        val map = cookies[url.host()]
-        if (cookies.containsKey(url.host()) && map!!.containsKey(name)) {
+        val map = cookies[url.host]
+        if (cookies.containsKey(url.host) && map!!.containsKey(name)) {
             //内存移除
             map.remove(name)
             //文件移除
@@ -132,7 +131,7 @@ class CustomCookieStore : CookieStore {
             if (cookiePrefs.contains(COOKIE_NAME_PREFIX + name)) {
                 prefsWriter.remove(COOKIE_NAME_PREFIX + name)
             }
-            prefsWriter.putString(url.host(), TextUtils.join(",", map.keys))
+            prefsWriter.putString(url.host, TextUtils.join(",", map.keys))
             prefsWriter.apply()
             return true
         } else {
@@ -141,9 +140,9 @@ class CustomCookieStore : CookieStore {
     }
 
     override fun removeCookies(url: HttpUrl): Boolean {
-        if (cookies.containsKey(url.host())) {
+        if (cookies.containsKey(url.host)) {
             //文件移除
-            val map = cookies[url.host()]
+            val map = cookies[url.host]
             val cookieNames = map!!.keys
             val prefsWriter = cookiePrefs.edit()
             for (cookieName in cookieNames) {
@@ -151,10 +150,10 @@ class CustomCookieStore : CookieStore {
                     prefsWriter.remove(COOKIE_NAME_PREFIX + cookieName)
                 }
             }
-            prefsWriter.remove(url.host())
+            prefsWriter.remove(url.host)
             prefsWriter.apply()
             //内存移除
-            cookies.remove(url.host())
+            cookies.remove(url.host)
             return true
         } else {
             return false
@@ -184,7 +183,7 @@ class CustomCookieStore : CookieStore {
             val outputStream = ObjectOutputStream(os)
             outputStream.writeObject(cookie)
         } catch (e: IOException) {
-            Log.d(LOG_TAG, "IOException in encodeCookie", e)
+            logd("IOException in encodeCookie $e")
             return null
         }
 
@@ -205,9 +204,9 @@ class CustomCookieStore : CookieStore {
             val objectInputStream = ObjectInputStream(byteArrayInputStream)
             cookie = (objectInputStream.readObject() as SerializableHttpCookie).getCookie()
         } catch (e: IOException) {
-            Log.d(LOG_TAG, "IOException in decodeCookie", e)
+            logd("IOException in decodeCookie $e")
         } catch (e: ClassNotFoundException) {
-            Log.d(LOG_TAG, "ClassNotFoundException in decodeCookie", e)
+            logd("ClassNotFoundException in decodeCookie $e")
         }
 
         return cookie
@@ -252,8 +251,7 @@ class CustomCookieStore : CookieStore {
      * 当前cookie是否过期
      */
     private fun isCookieExpired(cookie: Cookie): Boolean {
-        return cookie.expiresAt() < System.currentTimeMillis()
+        return cookie.expiresAt < System.currentTimeMillis()
     }
-
 
 }

@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">Martin</string>
+    <string name="account_null">The account is null!</string>
+    <string name="password_invalid">Your password is invalid</string>
+    <string name="login_success">Login success</string>
+    <string name="two_pwd_incorrect">Two password entries are incorrect</string>
+    <string name="password_again">please input your password again</string>
+    <string name="input_age">please input your age</string>
+    <string name="input_name">please input your name</string>
 </resources>

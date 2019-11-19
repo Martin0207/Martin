@@ -15,6 +15,7 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles 'consumer-rules.pro'
+
     }
 
     buildTypes {
@@ -37,8 +38,16 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility 1.8
-        targetCompatibility 1.8
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+    sourceSets {
+        //数据库概要、记录存放位置
+        androidTest.assets.srcDirs += files("$projectDir/schemas".toString())
     }
 }
 
@@ -64,22 +73,28 @@ dependencies {
 
     //数据库
     api deps.room.runtime
-    api deps.room.runtime_ktx
+    api deps.room.ktx
     kapt deps.room.compiler
     api deps.room.rxjava2
     testImplementation deps.room.testing
 
     //后台任务管理
     api deps.work.runtime
-    api deps.work.runtime_ktx
+    api deps.work.ktx
     testImplementation deps.work.testing
+
+    //分页工具
+    api deps.paging.rxjava2
+    api deps.paging.common
+    api deps.paging.runtime
 
     //网络请求
     api deps.retrofit2.core
     api deps.retrofit2.scalars
     api deps.retrofit2.gson
-    api deps.retrofit2.adapter
+    api deps.retrofit2.rxjava2
     api deps.retrofit2.interceptor
+    api deps.retrofit2.coroutine
 
     //RxJava2
     api deps.rxjava2.core
@@ -94,8 +109,18 @@ dependencies {
     api deps.refresh.layout
     api deps.refresh.header
 
+    //调试工具
     debugApi deps.pandora.core
     releaseApi deps.pandora.no_op
+
+    //协程
+    api deps.coroutine.core
+    api deps.coroutine.android
+
+    //KTX
+    api deps.ktx.viewmodel
+    api deps.ktx.runtime
+    api deps.ktx.liveData
 
     //解决方法数限制
     api deps.multidex

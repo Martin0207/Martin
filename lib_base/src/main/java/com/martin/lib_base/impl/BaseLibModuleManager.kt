@@ -2,16 +2,18 @@ package com.martin.lib_base.impl
 
 import android.app.Application
 import android.content.Context
+import android.content.SharedPreferences
 import androidx.multidex.MultiDex
-import com.bumptech.glide.Glide
-import com.martin.lib_base.retrofit.NetUtil
-import com.martin.lib_base.interfaces.IModuleManager
+import androidx.room.Room
 import com.martin.lib_base.BaseLib
-import com.orhanobut.logger.AndroidLogAdapter
+import com.martin.lib_base.dao.DB
+import com.martin.lib_base.interfaces.IModuleManager
+import com.martin.lib_base.retrofit.NetUtil
 import com.orhanobut.logger.Logger
 import com.xuexiang.xui.XUI
 import dev.DevUtils
 import org.koin.core.context.stopKoin
+import org.koin.core.module.Module
 import org.koin.dsl.module
 import timber.log.Timber
 
@@ -39,11 +41,38 @@ class BaseLibModuleManager : IModuleManager {
             DevUtils.openDebug()
 
             Timber.plant(Timber.DebugTree())
-            Logger.addLogAdapter(AndroidLogAdapter())
+            Logger.addLogAdapter(LogAdapterImpl())
         }
+        modules(application)
+    }
+
+    private fun modules(application: Application) {
         BaseLib.modules.add(module {
-            single { NetUtil.getApi() }
+            single {
+                NetUtil.getApi()
+            }
+            single {
+                application.applicationContext.getSharedPreferences(
+                    "${BaseLib.appName}_sp",
+                    Context.MODE_PRIVATE
+                )
+            }
+            single { application.applicationContext.resources }
+            buildDB(application)
         })
+    }
+
+    /**
+     * 创建数据库单例
+     */
+    private fun Module.buildDB(application: Application) {
+        single {
+            Room.databaseBuilder(
+                application.applicationContext,
+                DB::class.java,
+                "${BaseLib.appName}_database"
+            ).build()
+        }
     }
 
     override fun onTerminate(application: Application) {

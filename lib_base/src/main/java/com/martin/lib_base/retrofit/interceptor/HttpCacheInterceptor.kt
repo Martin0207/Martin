@@ -23,7 +23,7 @@ class HttpCacheInterceptor : Interceptor {
         val originalResponse = chain.proceed(request)
         return if (NetWorkUtils.isConnect()) {
             //有网的时候读接口上的@Headers里的配置，你可以在这里进行统一的设置
-            val cacheControl = request.cacheControl().toString()
+            val cacheControl = request.cacheControl.toString()
             originalResponse.newBuilder()
                 .header("Cache-Control", cacheControl)
                 .removeHeader("Pragma")

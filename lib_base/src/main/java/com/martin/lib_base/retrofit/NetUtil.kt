@@ -1,6 +1,7 @@
 package com.martin.lib_base.retrofit
 
 import com.google.gson.GsonBuilder
+import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import com.martin.lib_base.impl.HttpLogImpl
 import com.martin.lib_base.retrofit.cookie.CookieJarImpl
 import com.martin.lib_base.retrofit.cookie.CustomCookieStore
@@ -49,7 +50,6 @@ class NetUtil private constructor() {
             .readTimeout(readTimeout(), TimeUnit.MILLISECONDS)
             .addInterceptor(logInterceptor)
             .addNetworkInterceptor(HttpCacheInterceptor())
-//            .cache(cache)
         if (needChangeBaseUrl()) {
         }
         if (needMonitorDownload()) {
@@ -64,9 +64,10 @@ class NetUtil private constructor() {
             .create()
         val retrofit = Retrofit.Builder()
             .client(client)
+            .baseUrl(Api.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create(gson))
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-            .baseUrl(Api.BASE_URL)
+            .addCallAdapterFactory(CoroutineCallAdapterFactory())
             .build()
         api = retrofit.create(Api::class.java)
     }

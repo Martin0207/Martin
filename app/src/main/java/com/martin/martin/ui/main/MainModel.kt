@@ -6,15 +6,8 @@ package com.martin.martin.ui.main
  */
 class MainModel {
 
-    fun mainItems() = arrayListOf<String>(
+    fun mainItems() = arrayListOf(
         "Retrofit",
-        "Toast",
-        "Dialog",
-        "Toast",
-        "Toast",
-        "Toast",
-        "Toast",
-        "Toast",
         "Toast"
     )
 

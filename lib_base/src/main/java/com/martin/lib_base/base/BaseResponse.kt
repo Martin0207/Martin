@@ -17,5 +17,4 @@ class BaseResponse<T> {
         return "BaseResponse(errorCode=$errorCode, data=$data, isSuccess=$success)"
     }
 
-
 }

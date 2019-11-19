@@ -9,7 +9,8 @@ import org.koin.core.module.Module
 object BaseLib {
 
     /**
-     * koin初始化的Modules
+     * Koin初始化的Modules
+     * 每个Module之间相互独立,所以需要统一处理
      */
     val modules = arrayListOf<Module>()
 
@@ -17,5 +18,11 @@ object BaseLib {
      * 是否为debug模式
      */
     val debug = BuildConfig.apkType == "debug"
+
+    /**
+     * 应用名称
+     * 用于各个地方的命名,例如:数据库名称
+     */
+    val appName = "martin_frame"
 
 }
