@@ -1,3 +1,9 @@
+/**
+ * 该文件主要用于版本控制
+ * 避免项目中多个Module之间版本不统一,出现版本冲突等问题
+ * 同样也为了以后重新开启项目时能有简易文档记录,提供快速功能集成
+ */
+
 ext.deps = [:]
 def versions = [:]
 
@@ -73,13 +79,19 @@ deps.logger = "com.orhanobut:logger:$versions.logger"
 deps.timber = "com.jakewharton.timber:timber:$versions.timber"
 deps.dev_app_x = "com.afkt:DevAppX:$versions.dev_app_x"
 deps.multidex = "androidx.multidex:multidex:$versions.multidex"
+//扫描二维码
 deps.zxing_lite = "com.king.zxing:zxing-lite:$versions.zxing_lite"
+//汉字转拼音
 deps.pinyin4j = "com.belerweb:pinyin4j:$versions.pinyin4j"
+//消息数红点
 deps.badgeview = "q.rorbin:badgeview:$versions.badgeview"
+//请求管理
 deps.url_manager = "me.jessyan:retrofit-url-manager:$versions.url_manager"
 deps.progressmanager = "me.jessyan:progressmanager:$versions.progressmanager"
 //悬浮窗
 deps.easy_float = "com.github.princekin-f:EasyFloat:1.1.3"
+//预加载占位
+deps.broccoli = "me.samlss:broccoli:1.0.0"
 
 def gradle = [:]
 gradle.plugin = "com.android.tools.build:gradle:$versions.gradle"

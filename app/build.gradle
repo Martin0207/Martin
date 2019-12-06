@@ -1,49 +1,57 @@
 apply plugin: 'com.android.application'
-
 apply plugin: 'kotlin-android'
-
+//使用Kotlin扩展
 apply plugin: 'kotlin-android-extensions'
-
+//Kotlin环境下使用AnnotationProcessor
 apply plugin: 'kotlin-kapt'
 
 android {
+    //版本号统一在versions.gradle中管理
     compileSdkVersion versions.compile_sdk
     buildToolsVersion versions.build_tools
     defaultConfig {
+        //包名,集成时需要注意替换成自己的包名
         applicationId "com.martin.martin"
+        //最小支持版本号
         minSdkVersion versions.min_sdk
+        //目标版本号
         targetSdkVersion versions.target_sdk
+        //当前版本号
+        //Int值,可用来对比版本升级
         versionCode versions.version_code
+        //版本名称,一般用来展示当前版本
         versionName versions.version_name
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
+        //支持解决64K方法问题
         multiDexEnabled true
     }
     buildTypes {
         release {
+            //是否启用压缩
             minifyEnabled false
+            //混淆文件地址
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
 
+    //统一设置Java版本为1.8
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
+    //开启DataBinding的支持
     dataBinding {
         enabled true
     }
 
+    //Kotlin环境下指定JVM目标版本
     kotlinOptions {
         jvmTarget = "1.8"
     }
 }
 
 dependencies {
-
     implementation project(path: ':lib_base')
-
-    implementation 'androidx.appcompat:appcompat:1.1.0'
-    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
 }
