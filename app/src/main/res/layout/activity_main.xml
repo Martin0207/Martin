@@ -16,19 +16,18 @@
         android:layout_height="match_parent"
         tools:context=".ui.main.MainActivity">
 
-        <com.xuexiang.xui.widget.actionbar.TitleBar
-            android:id="@+id/titleBar"
+        <com.qmuiteam.qmui.widget.QMUITopBar
+            android:id="@+id/top_bar"
+            app:layout_constraintTop_toTopOf="parent"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:tb_titleText="martin"
-            app:layout_constraintTop_toTopOf="parent"/>
+            android:layout_height="wrap_content"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/titleBar" />
+            app:layout_constraintTop_toBottomOf="@id/top_bar" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

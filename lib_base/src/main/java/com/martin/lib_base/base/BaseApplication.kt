@@ -15,7 +15,7 @@ import org.koin.core.context.startKoin
  * @CreateDate: 2019/8/16 15:32
  * @Description: 必须要继承或实现该类功能，否则无法实现组件化
  */
-abstract class BaseApplication : Application() {
+class BaseApplication : Application() {
 
     private val mModuleManager: IModuleManager by lazy {
         ModuleManagerImpl(this)

@@ -4,8 +4,6 @@ import android.app.Activity
 import android.content.SharedPreferences
 import android.os.Bundle
 import com.martin.lib_base.constant.ConstantKey
-import com.martin.lib_base.loge
-import com.martin.martin.R
 import com.martin.martin.ui.main.MainActivity
 import com.martin.martin.ui.user.login.LoginActivity
 import org.koin.android.ext.android.inject

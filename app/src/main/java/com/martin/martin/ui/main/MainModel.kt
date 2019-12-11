@@ -7,7 +7,7 @@ package com.martin.martin.ui.main
 class MainModel {
 
     fun mainItems() = arrayListOf(
-        "Retrofit",
+        "Module",
         "Toast"
     )
 

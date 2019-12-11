@@ -3,12 +3,13 @@ package com.martin.martin.ui.user.login
 import android.content.SharedPreferences
 import android.content.res.Resources
 import androidx.lifecycle.*
+import androidx.work.impl.utils.PreferenceUtils
 import com.martin.lib_base.constant.ConstantKey
 import com.martin.lib_base.dao.DB
-import com.martin.lib_base.errorToast
-import com.martin.lib_base.loge
+import com.martin.lib_base.expansion.errorToast
+import com.martin.lib_base.expansion.loge
 import com.martin.lib_base.pojo.entity.UserEntity
-import com.martin.lib_base.successToast
+import com.martin.lib_base.expansion.successToast
 import com.martin.martin.R
 import com.martin.martin.ui.main.MainActivity
 import dev.DevUtils
@@ -27,12 +28,12 @@ class LoginViewModel(
     val model: LoginModel,
     val sp: SharedPreferences,
     val lifeOwner: LifecycleOwner
-    ) : ViewModel(),
+) : ViewModel(),
     /**
      * 如果想要在非Activity/Fragment中使用Koin功能
      * 需要让其实现[KoinComponent]接口
      */
-    KoinComponent{
+    KoinComponent {
 
     /**
      * 历史用户列表
@@ -92,6 +93,9 @@ class LoginViewModel(
                         )
                         else -> {
                             successToast(get<Resources>().getString(R.string.login_success))
+                            sp.edit()
+                                .putBoolean(ConstantKey.IS_LOGIN, true)
+                                .apply()
                             MainActivity.start(DevUtils.getTopActivity())
                         }
                     }

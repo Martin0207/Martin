@@ -3,6 +3,7 @@ package com.martin.martin.impl
 import android.app.Application
 import android.content.Context
 import androidx.lifecycle.LifecycleOwner
+import com.alibaba.android.arouter.launcher.ARouter
 import com.martin.lib_base.interfaces.IModuleManager
 import com.martin.lib_base.BaseLib
 import com.martin.martin.ui.main.MainModel
@@ -11,7 +12,6 @@ import com.martin.martin.ui.user.login.LoginModel
 import com.martin.martin.ui.user.login.LoginViewModel
 import com.martin.martin.ui.user.register.RegisterViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
-import org.koin.core.inject
 import org.koin.dsl.module
 
 /**
@@ -21,6 +21,22 @@ import org.koin.dsl.module
 class AppModuleManager : IModuleManager {
 
     override fun attachBaseContext(base: Context) {
+    }
+
+    override fun onCreate(application: Application) {
+        if (BaseLib.debug) {
+            ARouter.openLog()
+            ARouter.openDebug()
+        }
+        ARouter.init(application)
+        initModules()
+    }
+
+    override fun onTerminate(application: Application) {
+
+    }
+
+    private fun initModules() {
         BaseLib.modules.add(module {
             viewModel { MainViewModel() }
             single { MainModel() }
@@ -33,13 +49,6 @@ class AppModuleManager : IModuleManager {
             }
             viewModel { RegisterViewModel() }
         })
-    }
-
-    override fun onCreate(application: Application) {
-    }
-
-    override fun onTerminate(application: Application) {
-
     }
 
 }

@@ -4,6 +4,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 //Kotlin环境下使用AnnotationProcessor
 apply plugin: 'kotlin-kapt'
+apply plugin: 'com.alibaba.arouter'
 
 android {
     //版本号统一在versions.gradle中管理
@@ -25,6 +26,14 @@ android {
 
         //支持解决64K方法问题
         multiDexEnabled true
+
+        // 使用ARouter支持组件化
+        // 这里是ARouter框架的必要配置
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [AROUTER_MODULE_NAME: project.getName()]
+            }
+        }
     }
     buildTypes {
         release {
@@ -54,4 +63,9 @@ android {
 
 dependencies {
     implementation project(path: ':lib_base')
+    kapt deps.arouter.compiler
+
+    if (!(isModuled.toBoolean())) {
+        implementation project(path: ':module')
+    }
 }

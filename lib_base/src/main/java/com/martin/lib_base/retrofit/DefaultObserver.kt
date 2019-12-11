@@ -8,10 +8,8 @@ import com.google.gson.JsonParseException
 import com.martin.lib_base.BaseLib
 import com.martin.lib_base.R
 import com.martin.lib_base.base.BaseResponse
+import com.martin.lib_base.expansion.errorToast
 import com.orhanobut.logger.Logger
-import com.xuexiang.xui.XUI
-import com.xuexiang.xui.widget.dialog.LoadingDialog
-import com.xuexiang.xui.widget.toast.XToast
 import dev.DevUtils
 
 import org.json.JSONException
@@ -41,7 +39,7 @@ abstract class DefaultObserver<T : BaseResponse<*>>(
     init {
         activity?.let {
             if (isShowLoading) {
-                mDialog = LoadingDialog(it)
+//                mDialog = LoadingDialog(it)
             }
         }
     }
@@ -74,12 +72,11 @@ abstract class DefaultObserver<T : BaseResponse<*>>(
      * @param response 服务器返回的数据
      */
     open fun onFail(response: T?) {
-        XToast.error(
-            DevUtils.getContext(),
+        errorToast(
             response?.msg ?: DevUtils.getContext().resources.getString(
                 mErrorMsgId ?: R.string.response_return_error
             )
-        ).show()
+        )
     }
 
     override fun onError(e: Throwable) {

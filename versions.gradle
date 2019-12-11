@@ -14,8 +14,8 @@ versions.version_code = versionCode.toInteger()
 versions.version_name = versionName.toString()
 versions.build_tools = "29.0.2"
 
-versions.gradle = '3.5.2'
-versions.kotlin = "1.3.50"
+versions.gradle = '3.5.3'
+versions.kotlin = "1.3.61"
 versions.appcompat = '1.1.0'
 versions.support = '1.2.0-alpha01'
 versions.recyclerview = '1.1.0-rc01'
@@ -39,7 +39,7 @@ versions.rxlife_x = "1.0.9"
 versions.glide = '4.10.0'
 versions.rxpermissions = "0.9.5"
 versions.progressmanager = "1.5.0"
-versions.qmui = "1.4.0"
+versions.qmui = "2.0.0-alpha02"
 versions.xui = "1.0.8"
 versions.picture_library = "v2.2.3"
 versions.greendao = "3.2.2"
@@ -79,6 +79,7 @@ deps.logger = "com.orhanobut:logger:$versions.logger"
 deps.timber = "com.jakewharton.timber:timber:$versions.timber"
 deps.dev_app_x = "com.afkt:DevAppX:$versions.dev_app_x"
 deps.multidex = "androidx.multidex:multidex:$versions.multidex"
+
 //扫描二维码
 deps.zxing_lite = "com.king.zxing:zxing-lite:$versions.zxing_lite"
 //汉字转拼音
@@ -92,6 +93,8 @@ deps.progressmanager = "me.jessyan:progressmanager:$versions.progressmanager"
 deps.easy_float = "com.github.princekin-f:EasyFloat:1.1.3"
 //预加载占位
 deps.broccoli = "me.samlss:broccoli:1.0.0"
+//吐司
+deps.toast = "com.github.GrenderG:Toasty:1.4.2"
 
 def gradle = [:]
 gradle.plugin = "com.android.tools.build:gradle:$versions.gradle"
@@ -221,5 +224,11 @@ ktx.runtime="androidx.lifecycle:lifecycle-runtime-ktx:$versions.ktx"
 ktx.liveData="androidx.lifecycle:lifecycle-livedata-ktx:$versions.ktx"
 deps.ktx = ktx
 
+def arouter = [:]
+arouter.api = "com.alibaba:arouter-api:1.5.0"
+arouter.compiler = "com.alibaba:arouter-compiler:1.2.2"
+//classpath
+arouter.register = "com.alibaba:arouter-register:1.0.2"
+deps.arouter = arouter
 
 ext.deps = deps

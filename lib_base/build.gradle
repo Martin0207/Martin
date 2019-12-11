@@ -4,6 +4,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 //Kotlin环境下使用AnnotationProcessor
 apply plugin: 'kotlin-kapt'
+apply plugin: 'com.alibaba.arouter'
 
 android {
     //版本号统一在versions.gradle中管理
@@ -25,6 +26,13 @@ android {
 
         consumerProguardFiles 'consumer-rules.pro'
 
+        // 使用ARouter支持组件化
+        // 这里是ARouter框架的必要配置
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [AROUTER_MODULE_NAME: project.getName()]
+            }
+        }
     }
 
     buildTypes {
@@ -148,7 +156,7 @@ dependencies {
     //事件总线
     api deps.eventbus
     //常规UI
-    api deps.xui
+    api deps.qmui
     //权限申请
     api deps.rxpermissions
     //Json解析
@@ -158,4 +166,9 @@ dependencies {
     api deps.logger
     //上传下载监听
     api deps.progressmanager
+    //组件化路由器
+    api deps.arouter.api
+    kapt deps.arouter.compiler
+    //吐司工具
+    api deps.toast
 }

@@ -1,6 +1,7 @@
 package com.martin.martin.ui.main
 
 import androidx.lifecycle.ViewModel
+import com.martin.module.MainActivity
 import org.koin.core.KoinComponent
 import org.koin.core.inject
 
@@ -17,7 +18,6 @@ class MainViewModel : ViewModel(), KoinComponent {
     fun items() = mModel.mainItems()
 
     fun test(){
-
     }
 
 }

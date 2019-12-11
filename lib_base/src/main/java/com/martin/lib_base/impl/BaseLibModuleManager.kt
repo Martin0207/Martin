@@ -2,7 +2,6 @@ package com.martin.lib_base.impl
 
 import android.app.Application
 import android.content.Context
-import android.content.SharedPreferences
 import androidx.multidex.MultiDex
 import androidx.room.Room
 import com.martin.lib_base.BaseLib
@@ -10,7 +9,6 @@ import com.martin.lib_base.dao.DB
 import com.martin.lib_base.interfaces.IModuleManager
 import com.martin.lib_base.retrofit.NetUtil
 import com.orhanobut.logger.Logger
-import com.xuexiang.xui.XUI
 import dev.DevUtils
 import org.koin.core.context.stopKoin
 import org.koin.core.module.Module
@@ -31,8 +29,6 @@ class BaseLibModuleManager : IModuleManager {
     }
 
     override fun onCreate(application: Application) {
-        XUI.init(application)
-        XUI.debug(BaseLib.debug)
         //常用开发工具初始化
         DevUtils.init(application.applicationContext)
         //Debug
@@ -43,10 +39,10 @@ class BaseLibModuleManager : IModuleManager {
             Timber.plant(Timber.DebugTree())
             Logger.addLogAdapter(LogAdapterImpl())
         }
-        modules(application)
+        initModules(application)
     }
 
-    private fun modules(application: Application) {
+    private fun initModules(application: Application) {
         BaseLib.modules.add(module {
             single {
                 NetUtil.getApi()
