@@ -1,12 +1,10 @@
 package com.martin.lib_base.pojo.entity
 
 import androidx.annotation.NonNull
-import androidx.annotation.Nullable
+import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.google.gson.annotations.SerializedName
 import com.google.gson.annotations.Since
-import com.google.gson.annotations.Until
 
 /**
  * @author：孟凡华
@@ -45,9 +43,8 @@ class UserEntity {
 
     /**
      * 如果变量名称与数据库名称不一致
-     * 可以使用[SerializedName]来转换
+     * 可以使用[ColumnInfo]来转换
      */
-    @SerializedName("description")
     @Since(1.0)
     var desc: String? = null
 

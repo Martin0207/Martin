@@ -61,6 +61,7 @@ versions.progressmanager = "1.3.0"
 versions.coroutine = "1.3.2"
 versions.ktx = '2.2.0-rc01'
 versions.easy_float = '1.1.3'
+versions.agentweb = '4.1.2'
 ext.versions = versions
 
 def deps = [:]
@@ -224,11 +225,19 @@ ktx.runtime="androidx.lifecycle:lifecycle-runtime-ktx:$versions.ktx"
 ktx.liveData="androidx.lifecycle:lifecycle-livedata-ktx:$versions.ktx"
 deps.ktx = ktx
 
+//路由器框架
 def arouter = [:]
 arouter.api = "com.alibaba:arouter-api:1.5.0"
 arouter.compiler = "com.alibaba:arouter-compiler:1.2.2"
 //classpath
 arouter.register = "com.alibaba:arouter-register:1.0.2"
 deps.arouter = arouter
+
+//WebView框架
+def agentweb = [:]
+agentweb.agentweb = "com.just.agentweb:agentweb:$versions.agentweb"
+agentweb.filechooser = "com.just.agentweb:filechooser:$versions.agentweb"
+agentweb.Downloader = "com.download.library:Downloader:$versions.agentweb"
+deps.agentweb = agentweb
 
 ext.deps = deps

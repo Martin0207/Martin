@@ -17,4 +17,6 @@ class UploadBean {
     var src: String? = null
     var servletPath: String? = null
     var id: String? = null
+
+
 }

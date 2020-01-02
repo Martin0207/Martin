@@ -4,7 +4,6 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 //Kotlin环境下使用AnnotationProcessor
 apply plugin: 'kotlin-kapt'
-apply plugin: 'com.alibaba.arouter'
 
 android {
     //版本号统一在versions.gradle中管理
@@ -171,4 +170,7 @@ dependencies {
     kapt deps.arouter.compiler
     //吐司工具
     api deps.toast
+
+    //WebView
+    api deps.agentweb.agentweb
 }

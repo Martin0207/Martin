@@ -43,4 +43,8 @@ class BaseApplication : Application() {
         super.onTerminate()
         mModuleManager.onTerminate(this)
     }
+
+    override fun onLowMemory() {
+        super.onLowMemory()
+    }
 }
