@@ -1,5 +1,6 @@
 package com.martin.martin.ui.main
 
+import androidx.databinding.ObservableField
 import androidx.lifecycle.ViewModel
 import com.martin.module.MainActivity
 import org.koin.core.KoinComponent
@@ -13,11 +14,11 @@ class MainViewModel : ViewModel(), KoinComponent {
 
     private val mModel by inject<MainModel>()
 
-    var title = "Martin"
+    val viewHolderClass = MainViewHolder::class.java
 
     fun items() = mModel.mainItems()
 
-    fun test(){
+    fun test() {
     }
 
 }

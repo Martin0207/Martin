@@ -35,7 +35,7 @@
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
     <uses-permission android:name="android.permission.ACCESS_NOTIFICATION_POLICY" />
 
-    <application>
+    <application android:networkSecurityConfig="@xml/network_config">
 
         <!-- meta-data -->
         <meta-data

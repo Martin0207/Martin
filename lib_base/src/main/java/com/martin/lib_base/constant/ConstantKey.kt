@@ -8,7 +8,7 @@ package com.martin.lib_base.constant
  */
 object ConstantKey {
 
-    const val ACCOUNT = "ic_account"
+    const val ACCOUNT = "account"
 
     const val PASSWORD = "password"
 

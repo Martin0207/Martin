@@ -1,9 +1,10 @@
-package com.martin.lib_base.base
+package com.martin.lib_base.basic
 
 import android.text.TextUtils
 
 /**
  * @author martin
+ * 基础数据类，包含数据层级的最外层
  */
 class BaseResponse<T> {
 

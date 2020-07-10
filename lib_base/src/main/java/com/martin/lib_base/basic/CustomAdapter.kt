@@ -1,31 +1,39 @@
-package com.martin.lib_base.base
+package com.martin.lib_base.basic
 
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
+import com.martin.lib_base.annotation.ItemResID
+import com.martin.lib_base.expansion.loge
 
 /**
  * @author：孟凡华
  * @date：2019/9/6 16:13
  */
-class BaseAdapter<T>(
-    private val mContext: Context,
-    private val mItemLayoutId: Int,
-    val items: ArrayList<T>,
-    val initItem: (itemView: View, item: T, position: Int) -> Unit
-) : RecyclerView.Adapter<BaseAdapter.ViewHolder>() {
+class CustomAdapter(
+    context: Context,
+    private val mHolderClass: Class<out BaseViewHolder<*, out ViewDataBinding>>
+) : RecyclerView.Adapter<BaseViewHolder<*, out ViewDataBinding>>() {
+
+    private val items: ArrayList<Any> by lazy {
+        arrayListOf<Any>()
+    }
+
+    private var mItemId: Int? = null
+
 
     private val mInflater by lazy {
-        LayoutInflater.from(mContext)
+        LayoutInflater.from(context)
     }
 
     /**
      * 刷新列表元素
      * 如果传入null值,则清空列表数据
      */
-    fun refreshItems(list: List<T>?) {
+    fun refreshItems(list: List<Any>?) {
         (list ?: listOf()).let {
             items.clear()
             items.addAll(it)
@@ -36,7 +44,7 @@ class BaseAdapter<T>(
     /**
      * 添加单个元素
      */
-    fun addItem(item: T, index: Int = -1) {
+    fun addItem(item: Any, index: Int = -1) {
         if (index in 0 until items.size) {
             items.add(index, item)
             notifyItemRangeChanged(index, items.size - index)
@@ -49,7 +57,7 @@ class BaseAdapter<T>(
     /**
      * 添加多个元素
      */
-    fun addItems(list: List<T>, index: Int = -1) {
+    fun addItems(list: List<Any>, index: Int = -1) {
         //添加数据前的列表长度
         val oldSize = items.size
         if (index in 0 until oldSize) {
@@ -72,25 +80,34 @@ class BaseAdapter<T>(
         }
     }
 
-    fun getItem(position: Int): T? {
+    fun getItem(position: Int): Any? {
         return if (items.size > position) items[position] else null
-    }
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val itemView = mInflater.inflate(mItemLayoutId, parent, false)
-        return ViewHolder(itemView)
     }
 
     override fun getItemCount(): Int {
         return items.size
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        getItem(position)?.let {
-            initItem(holder.itemView, it, position)
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ): BaseViewHolder<*, out ViewDataBinding> {
+        if (mItemId == null) {
+            mHolderClass.annotations.forEach {
+                loge(it.javaClass.simpleName)
+            }
+            val annotation = mHolderClass.getAnnotation(ItemResID::class.java)
+                ?: throw NullPointerException("ViewHolder必须被[ItemResID]注解")
+
+            mItemId = annotation.id
         }
+        val inflate = mInflater.inflate(mItemId!!, parent, false)
+        val viewHolder = mHolderClass.getConstructor(View::class.java).newInstance(inflate)
+        viewHolder.onCreateViewHolder()
+        return viewHolder
     }
 
-    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
-
+    override fun onBindViewHolder(holder: BaseViewHolder<*, out ViewDataBinding>, position: Int) {
+        holder.onBindViewHolder(position, getItem(position))
+    }
 }

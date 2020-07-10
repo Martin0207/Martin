@@ -25,6 +25,7 @@ class SplashActivity : Activity() {
         } else {
             LoginActivity.start(this)
         }
+        finish()
     }
 
 }

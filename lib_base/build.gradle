@@ -99,7 +99,6 @@ dependencies {
     api deps.room.runtime
     api deps.room.ktx
     kapt deps.room.compiler
-    api deps.room.rxjava2
     testImplementation deps.room.testing
 
     //后台任务管理
@@ -108,7 +107,6 @@ dependencies {
     testImplementation deps.work.testing
 
     //分页工具
-    api deps.paging.rxjava2
     api deps.paging.common
     api deps.paging.runtime
 
@@ -116,14 +114,8 @@ dependencies {
     api deps.retrofit2.core
     api deps.retrofit2.scalars
     api deps.retrofit2.gson
-    api deps.retrofit2.rxjava2
     api deps.retrofit2.interceptor
     api deps.retrofit2.coroutine
-
-    //RxJava2
-    api deps.rxjava2.core
-    api deps.rxjava2.rxandroid
-    api deps.rxjava2.rxlife
 
     //图片加载
     api deps.glide.core
@@ -152,25 +144,16 @@ dependencies {
     api deps.dev_app_x
     //屏幕适配
     api deps.autosize
-    //事件总线
-    api deps.eventbus
     //常规UI
     api deps.qmui
-    //权限申请
-    api deps.rxpermissions
     //Json解析
     api deps.gson
     //日志管理
     api deps.timber
     api deps.logger
-    //上传下载监听
-    api deps.progressmanager
     //组件化路由器
     api deps.arouter.api
     kapt deps.arouter.compiler
     //吐司工具
     api deps.toast
-
-    //WebView
-    api deps.agentweb.agentweb
 }

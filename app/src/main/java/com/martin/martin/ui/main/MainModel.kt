@@ -8,6 +8,12 @@ class MainModel {
 
     fun mainItems() = arrayListOf(
         "Module",
+        "Module",
+        "Module",
+        "Module",
+        "Module",
+        "Module",
+        "Module",
         "Toast"
     )
 

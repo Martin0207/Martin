@@ -1,4 +1,4 @@
-package com.martin.lib_base.base
+package com.martin.lib_base.basic
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
-import org.greenrobot.eventbus.EventBus
 import kotlin.properties.Delegates
 
 /**
@@ -24,9 +23,6 @@ abstract class BaseFragment<T : ViewDataBinding> : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        if (useEventBus() && !EventBus.getDefault().isRegistered(this)) {
-            EventBus.getDefault().register(this)
-        }
         mBinding = DataBindingUtil.inflate(inflater, layoutId(), container, false)
 
         return mBinding.root
@@ -46,17 +42,4 @@ abstract class BaseFragment<T : ViewDataBinding> : Fragment() {
      * Fragment布局ID
      */
     abstract fun layoutId(): Int
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        if (useEventBus() && EventBus.getDefault().isRegistered(this)) {
-            EventBus.getDefault().unregister(this)
-        }
-    }
-
-    /**
-     * 是否使用EventBus
-     */
-    protected fun useEventBus() = false
-
 }

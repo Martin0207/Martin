@@ -2,6 +2,8 @@ package com.martin.lib_base.expansion
 
 import android.view.View
 import android.widget.Toast
+import androidx.recyclerview.widget.RecyclerView
+import com.martin.lib_base.basic.CustomAdapter
 import com.orhanobut.logger.Logger
 import dev.DevUtils
 import dev.utils.app.SnackbarUtils
@@ -13,9 +15,9 @@ import timber.log.Timber
  *********************************************************************************************/
 fun normalToast(msg: String, isShort: Boolean = true) {
     if (isShort) {
-        Toasty.normal(DevUtils.getContext(),msg,Toast.LENGTH_SHORT).show()
+        Toasty.normal(DevUtils.getContext(), msg, Toast.LENGTH_SHORT).show()
     } else {
-        Toasty.normal(DevUtils.getContext(),msg,Toast.LENGTH_LONG).show()
+        Toasty.normal(DevUtils.getContext(), msg, Toast.LENGTH_LONG).show()
     }
 }
 
@@ -98,3 +100,34 @@ fun loge(msg: String, useTimber: Boolean = true) {
  *  String
  *********************************************************************************************/
 fun String?.noNull() = this ?: ""
+
+
+/********************************************************************************************
+ *  RecyclerView
+ *********************************************************************************************/
+/**
+ * 获取自定义适配器
+ */
+fun RecyclerView.customAdapter(): CustomAdapter {
+    return this.adapter as CustomAdapter
+}
+
+fun RecyclerView.refresh(items: ArrayList<*>) {
+    this.post {
+        this.adapter?.let {
+            if (it is CustomAdapter) {
+                it.refreshItems(items)
+            }
+        }
+    }
+}
+
+fun RecyclerView.loadMore(items: ArrayList<*>) {
+    this.post {
+        this.adapter?.let {
+            if (it is CustomAdapter) {
+                it.addItems(items)
+            }
+        }
+    }
+}

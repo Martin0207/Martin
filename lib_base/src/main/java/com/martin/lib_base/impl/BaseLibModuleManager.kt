@@ -7,7 +7,7 @@ import androidx.room.Room
 import com.martin.lib_base.BaseLib
 import com.martin.lib_base.dao.DB
 import com.martin.lib_base.interfaces.IModuleManager
-import com.martin.lib_base.retrofit.NetUtil
+import com.martin.lib_base.retrofit.NetApply
 import com.orhanobut.logger.Logger
 import dev.DevUtils
 import org.koin.core.context.stopKoin
@@ -45,7 +45,7 @@ class BaseLibModuleManager : IModuleManager {
     private fun initModules(application: Application) {
         BaseLib.modules.add(module {
             single {
-                NetUtil.getApi()
+                NetApply.getApi()
             }
             single {
                 application.applicationContext.getSharedPreferences(

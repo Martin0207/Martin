@@ -6,7 +6,6 @@ import android.content.Context
 import android.content.pm.PackageManager
 import com.martin.lib_base.interfaces.IModuleManager
 import dev.utils.common.ReflectUtils
-import io.reactivex.Observable
 
 class ModuleManagerImpl @SuppressLint("CheckResult") constructor(context: Context) :
     IModuleManager {
@@ -22,23 +21,15 @@ class ModuleManagerImpl @SuppressLint("CheckResult") constructor(context: Contex
             通过Manifest文件，将value值为“module_manager”的key取出
             利用反射获取[IModuleManager]实例
          */
-        Observable.just(context)
-            .map {
-                it.packageManager.getApplicationInfo(
-                    it.packageName,
-                    PackageManager.GET_META_DATA
-                )
+        val metadata = context.packageManager.getApplicationInfo(
+            context.packageName,
+            PackageManager.GET_META_DATA
+        ).metaData
+        metadata.keySet().forEach { key ->
+            if (metadata[key] == MODULE_MANAGER) {
+                mModuleManagers.add(ReflectUtils.reflect(key).newInstance().get<IModuleManager>())
             }
-            .map {
-                it.metaData
-            }
-            .subscribe {
-                it.keySet().forEach { key ->
-                    if (it[key] == MODULE_MANAGER) {
-                        mModuleManagers.add(ReflectUtils.reflect(key).newInstance().get<IModuleManager>())
-                    }
-                }
-            }
+        }
     }
 
     override fun attachBaseContext(base: Context) {

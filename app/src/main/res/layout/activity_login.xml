@@ -46,12 +46,13 @@
             android:layout_margin="32dp"
             android:layout_weight="1"
             android:autofillHints="@string/input_account"
-            android:hint="@string/input_account"
+            android:hint="@string/input_password"
             android:inputType="textPassword"
             android:text="@={viewModel.password}"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/et_account" />
+
 
         <Button
             android:id="@+id/btn_login"
@@ -64,7 +65,7 @@
             android:textColor="@color/white"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/et_password"/>
+            app:layout_constraintTop_toBottomOf="@id/et_password" />
 
         <TextView
             android:id="@+id/tv_register"

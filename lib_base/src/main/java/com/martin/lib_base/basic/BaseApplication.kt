@@ -1,4 +1,4 @@
-package com.martin.lib_base.base
+package com.martin.lib_base.basic
 
 import android.app.Application
 import android.content.Context

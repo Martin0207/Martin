@@ -1,11 +1,10 @@
-package com.martin.lib_base.base
+package com.martin.lib_base.basic
 
 import android.content.pm.ActivityInfo
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
-import org.greenrobot.eventbus.EventBus
 import kotlin.properties.Delegates
 
 /**
@@ -22,10 +21,7 @@ abstract class BaseActivity<T : ViewDataBinding> : AppCompatActivity() {
         beforeSetContentView()
         //dataBinding初始化
         mBinding = DataBindingUtil.setContentView(this, layoutId())
-        //EventBus注册
-        if (useEventBus() && !EventBus.getDefault().isRegistered(this)) {
-            EventBus.getDefault().register(this)
-        }
+
         initOnCreate(savedInstanceState)
     }
 
@@ -53,17 +49,5 @@ abstract class BaseActivity<T : ViewDataBinding> : AppCompatActivity() {
         }
         super.onResume()
     }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        if (useEventBus() && EventBus.getDefault().isRegistered(this)) {
-            EventBus.getDefault().unregister(this)
-        }
-    }
-
-    /**
-     * 是否使用EventBus
-     */
-    protected fun useEventBus() = false
 
 }
